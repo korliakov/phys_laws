@@ -8,67 +8,80 @@
 Проект по изучению основных законов физики. <br> Проект позволяет просматривать сформулированные законы, а также добавлять свои и указывать на ошибки в законах.
 {% endblock %}
 
-
 {% block content %}
 <div class="container px-4 py-5" id="project-contents">
     <h2 class="pb-2 border-bottom">Что есть в этом проекте</h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
-        <div class="col d-flex">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em">
-                    <use xlink:href="#cpu-fill"></use>
-                </svg>
-            </div>
-            <div>
-                <h3 class="fs-2">Список физических законов</h3>
-                <p>Страница с названиями физических законов, формулировками и формулами. Содержание разбито по областям физики. </p>
-                <a href="/laws-list" class="btn btn-primary">Посмотреть</a>
-            </div>
-        </div>
-        <div class="col d-flex">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em">
-                    <use xlink:href="#cpu-fill"></use>
-                </svg>
-            </div>
-            <div>
-                <h3 class="fs-2">Форма для добавления законов</h3>
-                <p>При помощи формы можно добавить существующий закон физики в проект.</p>
-                <a href="/add-law" class="btn btn-primary">
-                    Заполнить
-                </a>
+        <div class="col d-flex flex-column">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 mb-3">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <h3 class="fs-4 card-title">Список физических законов</h3>
+                    <p class="card-text flex-grow-1">Страница с названиями физических законов, формулировками и формулами. Содержание разбито по областям физики.</p>
+                    <a href="/laws-list" class="btn btn-primary mt-auto align-self-start">Посмотреть</a>
+                </div>
             </div>
         </div>
-        <div class="col d-flex">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em">
-                    <use xlink:href="#cpu-fill"></use>
-                </svg>
-            </div>
-            <div>
-                <h3 class="fs-2">Статистика</h3>
-                <p>Сколько законов уже есть? Из какого раздела физики они?</p>
-                <a href="/stats" class="btn btn-primary">
-                    Изучить
-                </a>
+        <div class="col d-flex flex-column">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 mb-3">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <h3 class="fs-4 card-title">Форма для добавления законов</h3>
+                    <p class="card-text flex-grow-1">При помощи формы можно добавить существующий закон физики в проект.</p>
+                    <a href="/add-law" class="btn btn-primary mt-auto align-self-start">Заполнить</a>
+                </div>
             </div>
         </div>
-        <div class="col d-flex">
-            <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em">
-                    <use xlink:href="#cpu-fill"></use>
-                </svg>
+        <div class="col d-flex flex-column">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 mb-3">
+                        <i class="fa-solid fa-chart-bar"></i>
+                    </div>
+                    <h3 class="fs-4 card-title">Статистика</h3>
+                    <p class="card-text flex-grow-1">Сколько законов уже есть? Из какого раздела физики они?</p>
+                    <a href="/stats" class="btn btn-primary mt-auto align-self-start">Изучить</a>
+                </div>
             </div>
-            <div>
-                <h3 class="fs-2">Форма для указания ошибок</h3>
-                <p>Возможность указать на ошибки в законах.</p>
-                <a href="/add-error" class="btn btn-primary">
-                    Указать
-                </a>
+        </div>
+        <div class="col d-flex flex-column">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 mb-3">
+                        <i class="fa-solid fa-bug"></i>
+                    </div>
+                    <h3 class="fs-4 card-title">Форма для указания ошибок</h3>
+                    <p class="card-text flex-grow-1">Возможность указать на ошибки в законах.</p>
+                    <a href="/add-error" class="btn btn-primary mt-auto align-self-start">Указать</a>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
-{% endblock %}
 
+<style>
+    .card {
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .icon-square {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.75rem;
+    }
+    .card-title {
+        min-height: 3rem; /* Фиксированная высота заголовка */
+    }
+    .card-text {
+        min-height: 4.5rem; /* Фиксированная высота текста */
+    }
+</style>
+{% endblock %}

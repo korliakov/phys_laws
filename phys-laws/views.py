@@ -3,12 +3,14 @@ from django.core.cache import cache
 from . import laws_handler
 from django.template.defaulttags import register
 
+
 @register.filter
 def div(value, arg):
     try:
         return float(value) / float(arg)
     except (ValueError, ZeroDivisionError):
         return None
+
 
 @register.filter
 def multiply(value, arg):
@@ -17,19 +19,24 @@ def multiply(value, arg):
     except (ValueError, ZeroDivisionError):
         return None
 
+
 def index(request):
     return render(request, "index.html")
+
 
 def laws_list(request):
     laws = laws_handler.get_laws()
     return render(request, "laws_list.html", context={"laws": laws})
 
+
 def statistics(request):
     stats = laws_handler.get_stats()
     return render(request, "stats.html", stats)
 
+
 def add_law(request):
     return render(request, "law_add.html")
+
 
 def send_law(request):
     if request.method == "POST":
@@ -65,6 +72,7 @@ def send_law(request):
 
 def add_error(request):
     return render(request, "error_add.html")
+
 
 def send_error(request):
     if request.method == "POST":

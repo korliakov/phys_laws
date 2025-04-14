@@ -18,6 +18,15 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        .title-box {
+            background-color: #1F68B4;
+            color: white;
+            border-radius: 30px !important;
+        }
+        .btn {
+            background-color: #1F68B4;
+            color: white;
+        }
         .card {
             transition: transform 0.2s;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -31,14 +40,14 @@
         }
         .card-header {
             padding: 1rem 1.5rem;
-            background-color: #6c757d !important; /* Серый цвет */
+            background-color: #1F68B4 !important;
         }
         .badge {
         font-size: 0.9em;
         padding: 0.5em 0.75em;
         }
         .navbar {
-            border-bottom: 3px solid #0d6efd;
+            border-bottom: none;
         }
         .formula {
             font-size: 1.1em;
@@ -57,14 +66,14 @@
 <body>
 <main>
     <div class="container">
-        <header class="border-bottom">
+        <header>
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <i class="fa-solid fa-atom"></i> Законы физики
                 </a>
             </div>
         </header>
-        <div class="p-5 mb-4 bg-light rounded-3" id="title-box">
+        <div class="p-5 mb-4 title-box" id="title-box">
             <div class="container-fluid py-5">
                 <h1 class="display-1 fw-bold">{% block page-title %}{% endblock %}</h1>
                 <p class="col-md-8 fs-4">{% block page-lead %}{% endblock %}</p>

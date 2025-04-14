@@ -34,7 +34,8 @@ def get_stats():
         "terms_own": db_terms,
         "terms_added": user_terms,
         "area_freq": area_freq,
-        "words_avg": round(total_words / (db_terms + user_terms), 1) if (db_terms + user_terms) > 0 else 0,
+        "words_avg": round(total_words / (db_terms + user_terms), 1) if
+        (db_terms + user_terms) > 0 else 0,
     }
     return stats
 
