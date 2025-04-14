@@ -99,7 +99,7 @@
                 <textarea class="form-control" name="new_formula" id="new_formula"
                           aria-describedby="formula_note" rows="3"
                           required minlength="2" maxlength="200"
-                          pattern="[A-Za-zА-Яа-яЁё0-9\s\-\.\,\=\+\-\*\/\^\(\)\\]+"></textarea>
+                          pattern="[A-Za-zА-Яа-яЁё0-9\s\-\.\,\=\+\-\*\/\^\(\)\\\{\}]+"></textarea>
                 <div id="formula_note" class="form-text">
                     Формулу LaTeX (без спец. символов, например \vec{F} = m \vec{a}). Если формулы нет, поставьте прочерк
                 </div>
@@ -172,7 +172,7 @@
 
     // Функция валидации формулы
     function validateFormula() {
-        const formulaRegex = /^[A-Za-zА-Яа-яЁё0-9\s\-\.\,\=\+\-\*\/\^\(\)\\]+$/;
+        const formulaRegex = /^[A-Za-zА-Яа-яЁё0-9\s\-\.\,\=\+\-\*\/\^\(\)\\\{\}]+$/;
         if (formulaInput.value.length < 2 || formulaInput.value.length > 200 ||
             !formulaRegex.test(formulaInput.value)) {
             formulaInput.setCustomValidity('Формула должна содержать от 2 до 200 допустимых символов');
