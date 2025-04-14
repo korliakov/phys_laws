@@ -19,4 +19,10 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
+    path('laws-list', views.laws_list),
+    # path('add-law', views.add_law),
+    # path('stats', views.statistics),
+    # path('errors-form', views.error_form),
+
+
 ]

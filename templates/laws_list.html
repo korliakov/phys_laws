@@ -1,0 +1,51 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Список законов
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 py-5" id="laws-cards">
+    <h2 class="pb-2 border-bottom">Физические законы</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 py-5">
+        {% for cnt, name, definition, formula, area in laws %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header bg-secondary text-white">
+                    {% if area == "Механика" %}
+                        <i class="fa-solid fa-gears me-2"></i>
+                    {% elif area == "Термодинамика" %}
+                        <i class="fa-solid fa-fire me-2"></i>
+                    {% elif area == "Квантовая физика" %}
+                        <i class="fa-solid fa-atom me-2"></i>
+                    {% elif area == "Электричество" %}
+                        <i class="fa-solid fa-bolt me-2"></i>
+                    {% elif area == "Электродинамика" %}
+                        <i class="fa-solid fa-magnet me-2"></i>
+                    {% elif area == "Оптика" %}
+                        <i class="fa-solid fa-lightbulb me-2"></i>
+                    {% elif area == "Релятивистская механика" %}
+                        <i class="fa-solid fa-rocket me-2"></i>
+                    {% endif %}
+                    {{ name }}
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-3">
+                        <p class="card-text">{{ definition }}</p>
+                        <div class="formula p-3 bg-light rounded mb-3">
+                            {{ formula|safe }}
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <span class="badge bg-dark">{{ area }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

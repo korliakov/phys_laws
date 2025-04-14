@@ -5,23 +5,64 @@
     <title>{% block pagetitle %}{% endblock %}</title>
     <!-- load static -->
     {% load static %}
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <!-- CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
     <!-- Иконки Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .card {
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .card-header {
+            padding: 1rem 1.5rem;
+            background-color: #6c757d !important; /* Серый цвет */
+        }
+        .badge {
+        font-size: 0.9em;
+        padding: 0.5em 0.75em;
+        }
+        .navbar {
+            border-bottom: 3px solid #0d6efd;
+        }
+        .formula {
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+
+
+
+
 
 </head>
 <body>
 <main>
     <div class="container">
         <header class="border-bottom">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <i class="fa-solid fa-atom"></i> Законы физики
-                    </a>
-                </div>
-            </a>
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <i class="fa-solid fa-atom"></i> Законы физики
+                </a>
+            </div>
         </header>
         <div class="p-5 mb-4 bg-light rounded-3" id="title-box">
             <div class="container-fluid py-5">
