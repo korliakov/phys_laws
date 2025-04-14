@@ -23,7 +23,8 @@ urlpatterns = [
     path('add-law', views.add_law),
     path('send-law', views.send_law),
     path('stats', views.statistics),
-    # path('errors-form', views.error_form),
+    path('add-error', views.add_error),
+    path('send-error', views.send_error),
 
 
 ]

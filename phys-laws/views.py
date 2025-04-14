@@ -61,3 +61,30 @@ def send_law(request):
         return render(request, "law_request.html", context)
     else:
         add_law(request)
+
+
+def add_error(request):
+    return render(request, "error_add.html")
+
+def send_error(request):
+    if request.method == "POST":
+        cache.clear()
+        user_mail = request.POST.get("mail")
+        new_law = request.POST.get("new_law", "")
+        new_description = request.POST.get("new_description", "").replace(";", ",")
+        context = {"user": user_mail}
+        if len(new_description) == 0:
+            context["success"] = False
+            context["comment"] = "Описание должно быть не пустым"
+        elif len(new_law) == 0:
+            context["success"] = False
+            context["comment"] = "Название должно быть не пустым"
+        else:
+            context["success"] = True
+            context["comment"] = "Закон принят"
+            laws_handler.write_error(new_law, new_description, user_mail)
+        if context["success"]:
+            context["success-title"] = ""
+        return render(request, "error_request.html", context)
+    else:
+        add_error(request)

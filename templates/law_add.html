@@ -8,50 +8,202 @@
 Для добавления закона необходимо написать его название, формулировку, формулу LaTeX (без спец. символов, например \vec{F} = m \vec{a}) и раздел физики.
 {% endblock %}
 
+{% block extra-head %}
+<style>
+    .is-invalid {
+        border-color: #dc3545;
+        padding-right: calc(1.5em + 0.75rem);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+    .invalid-feedback {
+        color: #dc3545;
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+    }
+    .was-validated .form-control:invalid ~ .invalid-feedback,
+    .was-validated .form-control:invalid ~ .invalid-tooltip {
+        display: block;
+    }
+    .form-control:focus:invalid {
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="container-sm px-5 py-5" id="term-form">
-    <form method="post">
+    <form method="post" id="lawForm" class="needs-validation" novalidate>
         <div class="row px-5 py-2">
             <h3>Ваши контактные данные</h3>
         </div>
         <div class="row px-5 py-2">
             <div class="col-md-6">
-                <label for="name">Ваше имя:</label>
-                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Иван" value required>
+                <label for="name" class="form-label">Ваше имя:</label>
+                <input type="text" class="form-control" name="name" id="name"
+                       placeholder="Иван" required
+                       pattern="[A-Za-zА-Яа-яЁё\s\-]+"
+                       minlength="2" maxlength="50">
+                <div class="invalid-feedback">
+                    Пожалуйста, введите ваше имя (от 2 до 50 букв и дефисов)
+                </div>
             </div>
-<!--            <div class="col-md-6">-->
-<!--                <label for="email">Ваш контактный email:</label>-->
-<!--                <input type="text" class="form-control input-lg" name="email" id="email" placeholder="ivan@ivanov.com" value required>-->
-<!--            </div>-->
         </div>
         <div class="row px-5 py-2">
             <h3>Закон</h3>
         </div>
         <div class="row px-5 py-2">
             <div class="col-md-4">
-                <label for="new_law">Название закона</label>
-                <input type="text" class="form-control input-lg" name="new_law" id="new_law">
+                <label for="new_law" class="form-label">Название закона</label>
+                <input type="text" class="form-control" name="new_law" id="new_law"
+                       required minlength="3" maxlength="100"
+                       pattern="[A-Za-zА-Яа-яЁё0-9\s\-\.\,\(\)]+">
+                <div class="invalid-feedback">
+                    Название должно содержать от 3 до 100 символов (буквы, цифры, пробелы и знаки -.,())
+                </div>
             </div>
             <div class="col-md-8">
-                <label for="new_definition">Формулировка</label>
-                <textarea type="text" class="form-control input-lg" name="new_definition" id="new_definition" aria-describedby="definition_note" rows="3"></textarea>
-                <div id="definition_note" class="form-text">Постарайтесь уложиться в одно, максимум два предложения</div>
+                <label for="new_definition" class="form-label">Формулировка</label>
+                <textarea class="form-control" name="new_definition" id="new_definition"
+                          aria-describedby="definition_note" rows="3"
+                          required minlength="10" maxlength="500"></textarea>
+                <div id="definition_note" class="form-text">
+                    Постарайтесь уложиться в одно, максимум два предложения
+                </div>
+                <div class="invalid-feedback">
+                    Формулировка должна содержать от 10 до 500 символов
+                </div>
             </div>
-            <div class="col-md-4">
-                <label for="new_area">Раздел физики</label>
-                <input type="text" class="form-control input-lg" name="new_area" id="new_area">
+            <div class="col-md-4 mt-3">
+                <label for="new_area" class="form-label">Раздел физики</label>
+                <select class="form-select" name="new_area" id="new_area" required>
+                    <option value="" selected disabled>Выберите раздел...</option>
+                    <option value="Механика">Механика</option>
+                    <option value="Термодинамика">Термодинамика</option>
+                    <option value="Квантовая физика">Квантовая физика</option>
+                    <option value="Электричество">Электричество</option>
+                    <option value="Электродинамика">Электродинамика</option>
+                    <option value="Оптика">Оптика</option>
+                    <option value="Релятивистская механика">Релятивистская механика</option>
+                </select>
+                <div class="invalid-feedback">
+                    Пожалуйста, выберите раздел физики
+                </div>
             </div>
-            <div class="col-md-8">
-                <label for="new_formula">Формула</label>
-                <textarea type="text" class="form-control input-lg" name="new_formula" id="new_formula" aria-describedby="formula_note" rows="3"></textarea>
-                <div id="formula_note" class="form-text">Формулу LaTeX (без спец. символов, например \vec{F} = m \vec{a}). Если формулы нет, поставьте прочерк</div>
+            <div class="col-md-8 mt-3">
+                <label for="new_formula" class="form-label">Формула</label>
+                <textarea class="form-control" name="new_formula" id="new_formula"
+                          aria-describedby="formula_note" rows="3"
+                          required minlength="2" maxlength="200"
+                          pattern="[A-Za-zА-Яа-яЁё0-9\s\-\.\,\=\+\-\*\/\^\(\)\\]+"></textarea>
+                <div id="formula_note" class="form-text">
+                    Формулу LaTeX (без спец. символов, например \vec{F} = m \vec{a}). Если формулы нет, поставьте прочерк
+                </div>
+                <div class="invalid-feedback">
+                    Формула должна содержать от 2 до 200 символов (разрешены буквы, цифры, основные математические символы и LaTeX-команды)
+                </div>
             </div>
-
         </div>
         <div class="row px-5 py-2">
             <button type="submit" class="btn btn-primary" formaction="/send-law">Отправить</button>
         </div>
     </form>
 </div>
+
+<script>
+// Комплексная валидация формы
+(function() {
+    'use strict';
+
+    const form = document.getElementById('lawForm');
+    const nameInput = document.getElementById('name');
+    const lawNameInput = document.getElementById('new_law');
+    const definitionInput = document.getElementById('new_definition');
+    const areaSelect = document.getElementById('new_area');
+    const formulaInput = document.getElementById('new_formula');
+
+    // Функция валидации имени
+    function validateName() {
+        const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
+        if (nameInput.value.length < 2 || nameInput.value.length > 50 ||
+            !nameRegex.test(nameInput.value)) {
+            nameInput.setCustomValidity('Имя должно содержать от 2 до 50 букв и дефисов');
+            return false;
+        }
+        nameInput.setCustomValidity('');
+        return true;
+    }
+
+    // Функция валидации названия закона
+    function validateLawName() {
+        const lawNameRegex = /^[A-Za-zА-Яа-яЁё0-9\s\-\.\,\(\)]+$/;
+        if (lawNameInput.value.length < 3 || lawNameInput.value.length > 100 ||
+            !lawNameRegex.test(lawNameInput.value)) {
+            lawNameInput.setCustomValidity('Название должно содержать от 3 до 100 символов');
+            return false;
+        }
+        lawNameInput.setCustomValidity('');
+        return true;
+    }
+
+    // Функция валидации формулировки
+    function validateDefinition() {
+        if (definitionInput.value.length < 10 || definitionInput.value.length > 500) {
+            definitionInput.setCustomValidity('Формулировка должна содержать от 10 до 500 символов');
+            return false;
+        }
+        definitionInput.setCustomValidity('');
+        return true;
+    }
+
+    // Функция валидации раздела
+    function validateArea() {
+        if (areaSelect.value === "") {
+            areaSelect.setCustomValidity('Пожалуйста, выберите раздел физики');
+            return false;
+        }
+        areaSelect.setCustomValidity('');
+        return true;
+    }
+
+    // Функция валидации формулы
+    function validateFormula() {
+        const formulaRegex = /^[A-Za-zА-Яа-яЁё0-9\s\-\.\,\=\+\-\*\/\^\(\)\\]+$/;
+        if (formulaInput.value.length < 2 || formulaInput.value.length > 200 ||
+            !formulaRegex.test(formulaInput.value)) {
+            formulaInput.setCustomValidity('Формула должна содержать от 2 до 200 допустимых символов');
+            return false;
+        }
+        formulaInput.setCustomValidity('');
+        return true;
+    }
+
+    // Обработчики событий
+    nameInput.addEventListener('input', validateName);
+    lawNameInput.addEventListener('input', validateLawName);
+    definitionInput.addEventListener('input', validateDefinition);
+    areaSelect.addEventListener('change', validateArea);
+    formulaInput.addEventListener('input', validateFormula);
+
+    // Проверка перед отправкой
+    form.addEventListener('submit', function(event) {
+        const isNameValid = validateName();
+        const isLawNameValid = validateLawName();
+        const isDefinitionValid = validateDefinition();
+        const isAreaValid = validateArea();
+        const isFormulaValid = validateFormula();
+
+        if (!isNameValid || !isLawNameValid || !isDefinitionValid || !isAreaValid || !isFormulaValid) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+    }, false);
+})();
+</script>
 {% endblock %}
