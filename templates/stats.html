@@ -1,0 +1,86 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Статистика по законам
+{% endblock %}
+
+{% block page-lead %}
+Краткая статистика по добавленным в проект законам.
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 py-5" id="stats">
+    <div>
+        <h3 class="py-2">Количество законов</h3>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <h4>{{ terms_all }}</h4>
+            <p class="text-muted">всего</p>
+        </div>
+        <div class="col-md-4">
+            <h4>{{ terms_own }}</h4>
+            <p class="text-muted">изначально бывших в базе</p>
+        </div>
+        <div class="col-md-4">
+            <h4>{{ terms_added }}</h4>
+            <p class="text-muted">добавленных через <a href="/add-term">форму добавления закона</a></p>
+        </div>
+    </div>
+
+    <div>
+        <h3 class="py-2">Статистика по разделам</h3>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <i class="fa-solid fa-chart-pie me-2"></i> Распределение по разделам
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Раздел физики</th>
+                                    <th>Количество законов</th>
+                                    <th>Доля от общего числа</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for area, count in area_freq.items %}
+                                <tr>
+                                    <td>
+                                        {% if area == "Механика" %}
+                                            <i class="fa-solid fa-gears me-2"></i>
+                                        {% elif area == "Термодинамика" %}
+                                            <i class="fa-solid fa-fire me-2"></i>
+                                        {% elif area == "Квантовая физика" %}
+                                            <i class="fa-solid fa-atom me-2"></i>
+                                        {% elif area == "Электричество" %}
+                                            <i class="fa-solid fa-bolt me-2"></i>
+                                        {% elif area == "Электродинамика" %}
+                                            <i class="fa-solid fa-magnet me-2"></i>
+                                        {% elif area == "Оптика" %}
+                                            <i class="fa-solid fa-lightbulb me-2"></i>
+                                        {% elif area == "Релятивистская механика" %}
+                                            <i class="fa-solid fa-rocket me-2"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-star me-2"></i>
+                                        {% endif %}
+                                        {{ area }}
+                                    </td>
+                                    <td>{{ count }}</td>
+                                    <td>{{ count|div:terms_all|floatformat:2 }} ({{ count|div:terms_all|multiply:100|floatformat:0 }}%)</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
