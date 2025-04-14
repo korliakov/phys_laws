@@ -1,0 +1,57 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Добавить закон
+{% endblock %}
+
+{% block page-lead %}
+Для добавления закона необходимо написать его название, формулировку, формулу LaTeX (без спец. символов, например \vec{F} = m \vec{a}) и раздел физики.
+{% endblock %}
+
+
+{% block content %}
+<div class="container-sm px-5 py-5" id="term-form">
+    <form method="post">
+        <div class="row px-5 py-2">
+            <h3>Ваши контактные данные</h3>
+        </div>
+        <div class="row px-5 py-2">
+            <div class="col-md-6">
+                <label for="name">Ваше имя:</label>
+                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Иван" value required>
+            </div>
+<!--            <div class="col-md-6">-->
+<!--                <label for="email">Ваш контактный email:</label>-->
+<!--                <input type="text" class="form-control input-lg" name="email" id="email" placeholder="ivan@ivanov.com" value required>-->
+<!--            </div>-->
+        </div>
+        <div class="row px-5 py-2">
+            <h3>Закон</h3>
+        </div>
+        <div class="row px-5 py-2">
+            <div class="col-md-4">
+                <label for="new_law">Название закона</label>
+                <input type="text" class="form-control input-lg" name="new_law" id="new_law">
+            </div>
+            <div class="col-md-8">
+                <label for="new_definition">Формулировка</label>
+                <textarea type="text" class="form-control input-lg" name="new_definition" id="new_definition" aria-describedby="definition_note" rows="3"></textarea>
+                <div id="definition_note" class="form-text">Постарайтесь уложиться в одно, максимум два предложения</div>
+            </div>
+            <div class="col-md-4">
+                <label for="new_area">Раздел физики</label>
+                <input type="text" class="form-control input-lg" name="new_area" id="new_area">
+            </div>
+            <div class="col-md-8">
+                <label for="new_formula">Формула</label>
+                <textarea type="text" class="form-control input-lg" name="new_formula" id="new_formula" aria-describedby="formula_note" rows="3"></textarea>
+                <div id="formula_note" class="form-text">Формулу LaTeX (без спец. символов, например \vec{F} = m \vec{a}). Если формулы нет, поставьте прочерк</div>
+            </div>
+
+        </div>
+        <div class="row px-5 py-2">
+            <button type="submit" class="btn btn-primary" formaction="/send-law">Отправить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
